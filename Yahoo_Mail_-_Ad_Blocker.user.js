@@ -4,7 +4,7 @@
 // @description YMail Ads Remover. Hides all the Ad panels (Top, Left, Right) in the NEW Yahoo Mail and expands them to use the full screen, to make your Yahoo Mail completely equivalent to the Paid version for free!
 // @include     *://*.mail.yahoo.com/*
 // @include     *://mail.yahoo.com/*
-// @version     1.8
+// @version     1.8.1
 // @author      Volkan K.
 // @license     Apache License, Version 2.0; http://www.apache.org/licenses/LICENSE-2.0
 // @grant       GM_addStyle
@@ -56,6 +56,31 @@ div[data-test-id='comms-properties'] > a {margin-right: 0 !important; margin-bot
 span[data-test-id='settings-link-label'] {display:none !important} \
 ");
 	}
+	// Remove space in email list header
+	$( 'li[data-test-id="infinite-scroll-ROW"]' ).css( "transform", function( index , style) {
+		calc=12+index*32;
+		return "translate3d(0,"+calc+"px,0)";
+	});
+	
+	// Remove all transform css properties from the email list items.
+	var masterEmailDiv = document.getElementById("mail-app-component");
+	/*if (masterEmailDiv) {
+		console.log("Found master div!");
+		var emailElements = masterEmailDiv.getElementsByTagName("li");
+		for (item of emailElements) {
+			console.log("Removed transform element.");
+			item.style.removeProperty("transform");
+		}
+	}
+	else { console.log("Error: E-Mail div not found!"); }*/
+	
+	// Remove duplicate header
+	/*console.log("Removing bad headers.");
+	var badHeaderList = document.querySelectorAll("[data-test-id='infinite-scroll-SECTION']");
+	for (var item of badHeaderList) {
+		item.remove();
+		console.log("Removed a potentially bad header.");
+	}*/
 }
 my_ad_remover();
 $( document ).ready(my_ad_remover);
